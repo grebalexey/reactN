@@ -4,7 +4,9 @@ import Footer from './Footer';
 import Header from './Header';
 import Home from './Home';
 import TestSlider from './swiper';
+import ProductDetail from './ProductDetail';
 import './App.css'
+
 function App() {
   return (
     <div>   
@@ -15,7 +17,7 @@ function App() {
         <Routes>
             <Route path='/' exact element={<Home />} />
             <Route path='/catalog' element={<Catalog />} />
-
+            <Route path='/product/:id' element={<ProductDetail/>}/>
         </Routes>
         <TestSlider/>
         </div>

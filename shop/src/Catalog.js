@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+
 import ProductCard from './ProductCard'
 export default function Catalog() {
     const productsList = [
@@ -43,13 +46,36 @@ export default function Catalog() {
         },
     ]
 
+    const itemsPerPage = 3
+    const {CurPage,SetCurrentPage} = useState(1)
+
+    const lastIndexOf = itemsPerPage * CurPage
+    const indexOfFirstItem = lastIndex - itemsPerPage
+    const currentItems = productsList.slice(indexOfFirstItem,lastIndexOf)
+
+    const setPage = (page) => {
+        SetCurrentPage(page)
+    }
+
   return (
     
    <div className='Catalog'>
         <div className="Catalog__row">
            {productsList.map(product => (
-            <ProductCard key={product.id} product={product}/>
+            <link key={product.id} to={`/product/${product.id}`}>
+                <ProductCard key={product.id} product={product}/>
+            </link>
            ))}
+        </div>
+        <div className="pagination">
+            {
+                Array.from(
+                    {length: Math.ceil(productsList.length / itemsPerPage)},
+                    (_, index) => {
+                        <button key={index + 1} onClick={() => setPage(index + 1)}>
+                            {index + 1}
+                        </button>
+                })}
         </div>
    </div>
     
